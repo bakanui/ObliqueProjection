@@ -5,7 +5,7 @@
     Dim theta As Double = 45 * (Math.PI / 180)
     Dim vertex(7) As Point
     Dim edges(12) As Edge
-    Dim perspective(3, 3), screen(3, 3), translate(3, 3) As Single
+    Dim view(3, 3), screen(3, 3) As Single
     Dim VR(7), VS(7) As Point
     Structure Edge
         Dim point1 As Integer
@@ -41,20 +41,15 @@
         SetPoint(vertex(6), 1, 1, -1)
         SetPoint(vertex(7), -1, 1, -1)
 
-        SetColMat(screen, 0, 35, 0, 0, 200)
-        SetColMat(screen, 1, 0, -35, 0, 200)
+        SetColMat(screen, 0, 50, 0, 0, 200)
+        SetColMat(screen, 1, 0, -50, 0, 200)
         SetColMat(screen, 2, 0, 0, 0, 0)
         SetColMat(screen, 3, 0, 0, 0, 1)
 
-        SetColMat(translate, 0, 1, 0, 0, 0)
-        SetColMat(translate, 1, 0, 1, 0, 0)
-        SetColMat(translate, 2, 0, 0, 1, 0)
-        SetColMat(translate, 3, 0, 0, 0, 1)
-
-        SetColMat(perspective, 0, 1, 0, 0, 0)
-        SetColMat(perspective, 1, 0, 1, 0, 0)
-        SetColMat(perspective, 2, (Math.Atan(phi) * Math.Cos(theta)), (Math.Atan(phi) * Math.Sin(theta)), 1, 0)
-        SetColMat(perspective, 3, 0, 0, -5, 1)
+        SetColMat(view, 0, 1, 0, 0, 0)
+        SetColMat(view, 1, 0, 1, 0, 0)
+        SetColMat(view, 2, 0, 0, 1, 0)
+        SetColMat(view, 3, 0, 0, (1.0 / -5), 1)
 
         SetEdge(edges(0), 0, 1)
         SetEdge(edges(1), 1, 2)
@@ -70,7 +65,7 @@
         SetEdge(edges(11), 3, 7)
 
         For i = 0 To 7
-            VR(i) = MultiplyMat(vertex(i), translate)
+            VR(i) = MultiplyMat(vertex(i), view)
             VS(i) = MultiplyMat(VR(i), screen)
         Next
         DrawCube()
