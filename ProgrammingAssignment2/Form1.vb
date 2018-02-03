@@ -1,98 +1,104 @@
 ﻿Public Class Form1
-    Dim canvas As Graphics
+    Dim graphics As Graphics
+    Dim canvas As Bitmap
     Dim phi As Double = 45 * (Math.PI / 180)
     Dim theta As Double = 45 * (Math.PI / 180)
-    Dim vertex(8) As ColMatrix
+    Dim vertex(7) As Point
     Dim edges(12) As Edge
-    Dim view(4) As ColMatrix
-    Dim screen(4) As ColMatrix
-    Dim VR(), VS() As ColMatrix
+    Dim perspective(3, 3), screen(3, 3), translate(3, 3) As Single
+    Dim VR(7), VS(7) As Point
     Structure Edge
-        Dim point1 As Point
-        Dim point2 As Point
+        Dim point1 As Integer
+        Dim point2 As Integer
     End Structure
-    Structure ColMatrix
-        Dim a, b, c, d As Double
+    Structure Point
+        Dim x, y, z, w As Single
     End Structure
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim point1 As Point = New Point(100, 10)
-        Dim point2 As Point = New Point(200, 20)
-        canvas.DrawLine(Pens.Black, point1, point2)
         Init()
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        canvas = PictureBox1.CreateGraphics()
+        canvas = New Bitmap(PictureBox1.Width, PictureBox1.Height)
+        graphics = Graphics.FromImage(canvas)
+    End Sub
+    Sub DrawCube()
+        Dim i, j As Integer
+        For j = 0 To 3
+            graphics.DrawLine(Pens.Red, VS(edges(j).point1).x, VS(edges(j).point1).y, VS(edges(j).point2).x, VS(edges(j).point2).y)
+        Next
+        For i = 4 To 11
+            graphics.DrawLine(Pens.Black, VS(edges(i).point1).x, VS(edges(i).point1).y, VS(edges(i).point2).x, VS(edges(i).point2).y)
+        Next
+        PictureBox1.Image = canvas
     End Sub
     Sub Init()
-        SetColMatrix(vertex(0), -1, -1, -1, 1)
-        SetColMatrix(vertex(1), -1, 1, -1, 1)
-        SetColMatrix(vertex(2), 1, -1, -1, 1)
-        SetColMatrix(vertex(3), 1, 1, -1, 1)
-        SetColMatrix(vertex(4), -1, -1, 1, 1)
-        SetColMatrix(vertex(5), -1, 1, 1, 1)
-        SetColMatrix(vertex(6), 1, -1, 1, 1)
-        SetColMatrix(vertex(7), 1, 1, -1, 1)
+        SetPoint(vertex(0), -1, -1, 1)
+        SetPoint(vertex(1), 1, -1, 1)
+        SetPoint(vertex(2), 1, 1, 1)
+        SetPoint(vertex(3), -1, 1, 1)
+        SetPoint(vertex(4), -1, -1, -1)
+        SetPoint(vertex(5), 1, -1, -1)
+        SetPoint(vertex(6), 1, 1, -1)
+        SetPoint(vertex(7), -1, 1, -1)
 
-        SetColMatrix(view(0), 1, 0, 0, 0)
-        SetColMatrix(view(1), 0, 1, 0, 0)
-        SetColMatrix(view(2), (Math.Atan(phi) * Math.Cos(theta)), (Math.Atan(phi) * Math.Sin(theta)), 0, 0)
-        SetColMatrix(view(3), 0, 0, 0, 1)
+        SetColMat(screen, 0, 35, 0, 0, 200)
+        SetColMat(screen, 1, 0, -35, 0, 200)
+        SetColMat(screen, 2, 0, 0, 0, 0)
+        SetColMat(screen, 3, 0, 0, 0, 1)
 
-        SetColMatrix(screen(0), 50, 0, 0, 200)
-        SetColMatrix(screen(1), 0, -50, 0, 200)
-        SetColMatrix(screen(2), 0, 0, 0, 0)
-        SetColMatrix(screen(3), 0, 0, 0, 1)
+        SetColMat(translate, 0, 1, 0, 0, 0)
+        SetColMat(translate, 1, 0, 1, 0, 0)
+        SetColMat(translate, 2, 0, 0, 1, 0)
+        SetColMat(translate, 3, 0, 0, 0, 1)
+
+        SetColMat(perspective, 0, 1, 0, 0, 0)
+        SetColMat(perspective, 1, 0, 1, 0, 0)
+        SetColMat(perspective, 2, (Math.Atan(phi) * Math.Cos(theta)), (Math.Atan(phi) * Math.Sin(theta)), 1, 0)
+        SetColMat(perspective, 3, 0, 0, -5, 1)
+
+        SetEdge(edges(0), 0, 1)
+        SetEdge(edges(1), 1, 2)
+        SetEdge(edges(2), 2, 3)
+        SetEdge(edges(3), 3, 0)
+        SetEdge(edges(4), 4, 5)
+        SetEdge(edges(5), 5, 6)
+        SetEdge(edges(6), 6, 7)
+        SetEdge(edges(7), 7, 4)
+        SetEdge(edges(8), 0, 4)
+        SetEdge(edges(9), 1, 5)
+        SetEdge(edges(10), 2, 6)
+        SetEdge(edges(11), 3, 7)
 
         For i = 0 To 7
-            For j = 0 To 3
-                MultiplyMatrix(VR(i), vertex(i), view(j))
-                MultiplyMatrix(VS(i), VR(i), screen(j))
-            Next
+            VR(i) = MultiplyMat(vertex(i), translate)
+            VS(i) = MultiplyMat(VR(i), screen)
         Next
-
-        SetEdge(edges(0), VS(0), VS(1))
-        SetEdge(edges(1), VS(1), VS(2))
-        SetEdge(edges(2), VS(2), VS(3))
-        SetEdge(edges(3), VS(3), VS(4))
-        SetEdge(edges(4), VS(4), VS(5))
-        SetEdge(edges(5), VS(5), VS(6))
-        SetEdge(edges(6), VS(7), VS(8))
-        SetEdge(edges(7), VS(9), VS(10))
-        SetEdge(edges(8), VS(11), VS(12))
-        SetEdge(edges(9), VS(0), VS(1))
-        SetEdge(edges(10), VS(0), VS(1))
-        SetEdge(edges(11), VS(0), VS(1))
-
+        DrawCube()
     End Sub
-    Sub SetColMatrix(ColMatrix As ColMatrix, a As Double, b As Double, c As Double, d As Double)
-        ColMatrix.a = a
-        ColMatrix.b = b
-        ColMatrix.c = c
-        ColMatrix.d = d
+    Sub SetEdge(ByRef edge As Edge, n1 As Integer, n2 As Integer)
+        edge.point1 = n1
+        edge.point2 = n2
     End Sub
-    Sub MultiplyMatrix(result As ColMatrix, MatrixA As ColMatrix, MatrixB As ColMatrix)
-        result.a = MatrixA.a * MatrixB.a
-        result.b = MatrixA.b * MatrixB.a
-        result.c = MatrixA.c * MatrixB.a
-        result.d = MatrixA.d * MatrixB.a
-
-        result.a = result.a + (MatrixA.a * MatrixB.b)
-        result.b = result.b + (MatrixA.b * MatrixB.b)
-        result.c = result.c + (MatrixA.c * MatrixB.b)
-        result.d = result.d + (MatrixA.d * MatrixB.b)
-
-        result.a = result.a + (MatrixA.a * MatrixB.c)
-        result.b = result.b + (MatrixA.b * MatrixB.c)
-        result.c = result.c + (MatrixA.c * MatrixB.c)
-        result.d = result.d + (MatrixA.d * MatrixB.c)
-
-        result.a = result.a + (MatrixA.a * MatrixB.d)
-        result.b = result.b + (MatrixA.b * MatrixB.d)
-        result.c = result.c + (MatrixA.c * MatrixB.d)
-        result.d = result.d + (MatrixA.d * MatrixB.d)
+    Sub SetPoint(ByRef point As Point, x As Integer, y As Integer, z As Integer)
+        point.x = x
+        point.y = y
+        point.z = z
+        point.w = 1
     End Sub
-    Sub SetEdge(edge As Edge, vertexA As ColMatrix, vertexB As ColMatrix)
-        edge.point1 = New Point(vertexA.a, vertexA.b)
-        edge.point2 = New Point(vertexB.a, vertexB.b)
+    Sub SetColMat(ByRef Matrix(,) As Single, col As Integer, a As Double, b As Double, c As Double, d As Double)
+        Matrix(0, col) = a
+        Matrix(1, col) = b
+        Matrix(2, col) = c
+        Matrix(3, col) = d
     End Sub
+    Function MultiplyMat(point As Point, M(,) As Single) As Point
+        Dim result As Point
+        Dim w As Single
+        w = (point.x * M(0, 3) + point.y * M(1, 3) + point.z * M(2, 3) + point.w * M(3, 3))
+        result.x = (point.x * M(0, 0) + point.y * M(1, 0) + point.z * M(2, 0) + point.w * M(3, 0)) / w
+        result.y = (point.x * M(0, 1) + point.y * M(1, 1) + point.z * M(2, 1) + point.w * M(3, 1)) / w
+        result.z = (point.x * M(0, 2) + point.y * M(1, 2) + point.z * M(2, 2) + point.w * M(3, 2)) / w
+        result.w = 1
+        Return result
+    End Function
 End Class
