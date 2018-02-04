@@ -57,21 +57,21 @@ Partial Class ObliqueProjection
         '
         Me.phiTextBox.Location = New System.Drawing.Point(822, 66)
         Me.phiTextBox.Name = "phiTextBox"
-        Me.phiTextBox.Size = New System.Drawing.Size(100, 22)
+        Me.phiTextBox.Size = New System.Drawing.Size(40, 22)
         Me.phiTextBox.TabIndex = 2
         '
         'thetaTextBox
         '
-        Me.thetaTextBox.Location = New System.Drawing.Point(822, 111)
+        Me.thetaTextBox.Location = New System.Drawing.Point(879, 66)
         Me.thetaTextBox.Name = "thetaTextBox"
-        Me.thetaTextBox.Size = New System.Drawing.Size(100, 22)
+        Me.thetaTextBox.Size = New System.Drawing.Size(43, 22)
         Me.thetaTextBox.TabIndex = 3
         '
         'degreeChange
         '
-        Me.degreeChange.Location = New System.Drawing.Point(838, 148)
+        Me.degreeChange.Location = New System.Drawing.Point(838, 94)
         Me.degreeChange.Name = "degreeChange"
-        Me.degreeChange.Size = New System.Drawing.Size(75, 23)
+        Me.degreeChange.Size = New System.Drawing.Size(75, 25)
         Me.degreeChange.TabIndex = 4
         Me.degreeChange.Text = "Change"
         Me.degreeChange.UseVisualStyleBackColor = True

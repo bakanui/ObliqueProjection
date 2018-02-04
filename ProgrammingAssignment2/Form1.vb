@@ -3,9 +3,6 @@
     Dim canvas As Bitmap
     Dim phi As Single
     Dim theta As Single
-    Dim cotphi As Single
-    Dim costheta As Single
-    Dim sintheta As Single
     Dim vertex(7) As Point
     Dim edges(12) As Edge
     Dim view(3, 3), screen(3, 3) As Single
@@ -25,9 +22,6 @@
         theta = 45
         phiTextBox.Text = phi
         thetaTextBox.Text = theta
-        cotphi = Math.Atan(DegreeToRadian(phi))
-        costheta = Math.Cos(DegreeToRadian(theta))
-        sintheta = Math.Sin(DegreeToRadian(theta))
         canvas = New Bitmap(PictureBox1.Width, PictureBox1.Height)
         graphics = Graphics.FromImage(canvas)
         Init(phi, theta)
@@ -67,8 +61,8 @@
         SetColMat(screen, 2, 0, 0, 0, 0)
         SetColMat(screen, 3, 0, 0, 0, 1)
 
-        SetColMat(view, 0, 1, 0, (cotphi * costheta) * 2, 0)
-        SetColMat(view, 1, 0, 1, (cotphi * sintheta) * 2, 0)
+        SetColMat(view, 0, 1, 0, (CotDegree(phi) * CosDegree(theta)) * 2, 0)
+        SetColMat(view, 1, 0, 1, (CotDegree(phi) * SinDegree(theta)) * 2, 0)
         SetColMat(view, 2, 0, 0, 0, 0)
         SetColMat(view, 3, 0, 0, 0, 1)
 
@@ -103,8 +97,8 @@
     End Sub
     Private Sub RotationTick_Tick(sender As Object, e As EventArgs) Handles RotationTick.Tick
         Dim Rot(3, 3) As Single
-        Dim deg As Integer = 45
-        HideCube()
+        Dim deg As Single = 0
+        'HideCube()
 
         deg = deg + 2
 
@@ -114,11 +108,10 @@
         SetColMat(Rot, 0, 1, 0, 0, 0)
         For i = 0 To 7
             VR(i) = MultiplyMat(vertex(i), Rot)
-            VR(i) = MultiplyMat(VR(i), view)
+            'VR(i) = MultiplyMat(VR(i), view)
             VS(i) = MultiplyMat(VR(i), screen)
         Next
         DrawCube()
-
         PictureBox1.Refresh()
     End Sub
     Sub SetColMat(ByRef Matrix(,) As Single, col As Integer, a As Double, b As Double, c As Double, d As Double)
@@ -143,16 +136,16 @@
     Private Sub degreeChange_Click(sender As Object, e As EventArgs) Handles degreeChange.Click
         phi = phiTextBox.Text
         theta = thetaTextBox.Text
-        cotphi = Math.Atan(DegreeToRadian(phi))
-        costheta = Math.Cos(DegreeToRadian(theta))
-        sintheta = Math.Sin(DegreeToRadian(theta))
         HideCube()
         Init(phi, theta)
     End Sub
-    Function CosDegree(ByRef degree As Integer)
+    Function CosDegree(ByRef degree As Single)
         Return Math.Cos(DegreeToRadian(degree))
     End Function
-    Function SinDegree(ByRef degree As Integer)
+    Function SinDegree(ByRef degree As Single)
         Return Math.Sin(DegreeToRadian(degree))
+    End Function
+    Function CotDegree(ByRef degree As Single)
+        Return Math.Atan(DegreeToRadian(degree))
     End Function
 End Class
