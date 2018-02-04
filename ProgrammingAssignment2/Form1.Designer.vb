@@ -32,17 +32,17 @@ Partial Class Form1
         Me.PictureBox1.BackColor = System.Drawing.SystemColors.Window
         Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(772, 498)
+        Me.PictureBox1.Size = New System.Drawing.Size(800, 500)
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(826, 42)
+        Me.Button1.Location = New System.Drawing.Point(837, 41)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.Size = New System.Drawing.Size(75, 50)
         Me.Button1.TabIndex = 1
-        Me.Button1.Text = "Button1"
+        Me.Button1.Text = "Rotate"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Form1
@@ -52,7 +52,7 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(934, 522)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form1"
         Me.Text = "Form1"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -1,8 +1,11 @@
 ﻿Public Class Form1
     Dim graphics As Graphics
     Dim canvas As Bitmap
-    Dim phi As Double = 45 * (Math.PI / 180)
-    Dim theta As Double = 45 * (Math.PI / 180)
+    Dim phi As Single = 45 * (Math.PI / 180)
+    Dim theta As Single = 45 * (Math.PI / 180)
+    Dim cotphi As Single = Math.Atan(phi)
+    Dim costheta As Single = Math.Cos(theta)
+    Dim sintheta As Single = Math.Sin(theta)
     Dim vertex(7) As Point
     Dim edges(12) As Edge
     Dim view(3, 3), screen(3, 3) As Single
@@ -41,15 +44,15 @@
         SetPoint(vertex(6), 1, 1, -1)
         SetPoint(vertex(7), -1, 1, -1)
 
-        SetColMat(screen, 0, 50, 0, 0, 200)
-        SetColMat(screen, 1, 0, -50, 0, 200)
+        SetColMat(screen, 0, 50, 0, 0, 300)
+        SetColMat(screen, 1, 0, -50, 0, 180)
         SetColMat(screen, 2, 0, 0, 0, 0)
         SetColMat(screen, 3, 0, 0, 0, 1)
 
-        SetColMat(view, 0, 1, 0, 0, 0)
-        SetColMat(view, 1, 0, 1, 0, 0)
-        SetColMat(view, 2, 0, 0, 1, 0)
-        SetColMat(view, 3, 0, 0, (1.0 / -5), 1)
+        SetColMat(view, 0, 1, 0, (cotphi * costheta) * 2, 0)
+        SetColMat(view, 1, 0, 1, (cotphi * sintheta) * 2, 0)
+        SetColMat(view, 2, 0, 0, 0, 0)
+        SetColMat(view, 3, 0, 0, 0, 1)
 
         SetEdge(edges(0), 0, 1)
         SetEdge(edges(1), 1, 2)
