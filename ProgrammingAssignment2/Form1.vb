@@ -2,11 +2,12 @@
     Dim graphics As Graphics
     Dim canvas As Bitmap
     Dim phi As Single
-    Dim theta As Single
+    Dim alpha As Single
     Dim vertex(7) As Point
     Dim edges(12) As Edge
     Dim view(3, 3), screen(3, 3) As Single
     Dim VR(7), VS(7) As Point
+    Dim deg As Single = 0
     Structure Edge
         Dim point1 As Integer
         Dim point2 As Integer
@@ -19,12 +20,12 @@
     End Sub
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         phi = 45
-        theta = 45
+        alpha = 45
         phiTextBox.Text = phi
-        thetaTextBox.Text = theta
+        alphaTextBox.Text = alpha
         canvas = New Bitmap(PictureBox1.Width, PictureBox1.Height)
         graphics = Graphics.FromImage(canvas)
-        Init(phi, theta)
+        Init(phi, alpha)
     End Sub
     Sub DrawCube()
         Dim i, j As Integer
@@ -46,7 +47,7 @@
         Next
         PictureBox1.Image = canvas
     End Sub
-    Sub Init(phi As Single, theta As Single)
+    Sub Init(phi As Single, alpha As Single)
         SetPoint(vertex(0), -1, -1, 1)
         SetPoint(vertex(1), 1, -1, 1)
         SetPoint(vertex(2), 1, 1, 1)
@@ -61,8 +62,8 @@
         SetColMat(screen, 2, 0, 0, 0, 0)
         SetColMat(screen, 3, 0, 0, 0, 1)
 
-        SetColMat(view, 0, 1, 0, (CotDegree(phi) * CosDegree(theta)) * 2, 0)
-        SetColMat(view, 1, 0, 1, (CotDegree(phi) * SinDegree(theta)) * 2, 0)
+        SetColMat(view, 0, 1, 0, (CotDegree(phi) * CosDegree(alpha)) * 2, 0)
+        SetColMat(view, 1, 0, 1, (CotDegree(phi) * SinDegree(alpha)) * 2, 0)
         SetColMat(view, 2, 0, 0, 0, 0)
         SetColMat(view, 3, 0, 0, 0, 1)
 
@@ -97,18 +98,18 @@
     End Sub
     Private Sub RotationTick_Tick(sender As Object, e As EventArgs) Handles RotationTick.Tick
         Dim Rot(3, 3) As Single
-        Dim deg As Single = 0
-        'HideCube()
 
-        deg = deg + 2
+        HideCube()
+
+        deg = deg + 5
 
         SetColMat(Rot, 0, 1, 0, 0, 0)
-        SetColMat(Rot, 0, 1, CosDegree(deg), -SinDegree(deg), 0)
-        SetColMat(Rot, 0, 1, SinDegree(deg), CosDegree(deg), 0)
-        SetColMat(Rot, 0, 1, 0, 0, 0)
+        SetColMat(Rot, 1, 0, CosDegree(deg), -SinDegree(deg), 0)
+        SetColMat(Rot, 2, 0, SinDegree(deg), CosDegree(deg), 0)
+        SetColMat(Rot, 3, 0, 0, 0, 1)
         For i = 0 To 7
             VR(i) = MultiplyMat(vertex(i), Rot)
-            'VR(i) = MultiplyMat(VR(i), view)
+            VR(i) = MultiplyMat(VR(i), view)
             VS(i) = MultiplyMat(VR(i), screen)
         Next
         DrawCube()
@@ -135,9 +136,9 @@
     End Function
     Private Sub degreeChange_Click(sender As Object, e As EventArgs) Handles degreeChange.Click
         phi = phiTextBox.Text
-        theta = thetaTextBox.Text
+        alpha = alphaTextBox.Text
         HideCube()
-        Init(phi, theta)
+        Init(phi, alpha)
     End Sub
     Function CosDegree(ByRef degree As Single)
         Return Math.Cos(DegreeToRadian(degree))

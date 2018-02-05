@@ -27,7 +27,7 @@ Partial Class ObliqueProjection
         Me.Button1 = New System.Windows.Forms.Button()
         Me.RotationTick = New System.Windows.Forms.Timer(Me.components)
         Me.phiTextBox = New System.Windows.Forms.TextBox()
-        Me.thetaTextBox = New System.Windows.Forms.TextBox()
+        Me.alphaTextBox = New System.Windows.Forms.TextBox()
         Me.degreeChange = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -35,17 +35,19 @@ Partial Class ObliqueProjection
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.SystemColors.Window
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
+        Me.PictureBox1.Location = New System.Drawing.Point(9, 10)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(800, 500)
+        Me.PictureBox1.Size = New System.Drawing.Size(600, 406)
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(838, 12)
+        Me.Button1.Location = New System.Drawing.Point(628, 10)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 27)
+        Me.Button1.Size = New System.Drawing.Size(56, 22)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "Rotate"
         Me.Button1.UseVisualStyleBackColor = True
@@ -55,38 +57,40 @@ Partial Class ObliqueProjection
         '
         'phiTextBox
         '
-        Me.phiTextBox.Location = New System.Drawing.Point(822, 66)
+        Me.phiTextBox.Location = New System.Drawing.Point(616, 54)
+        Me.phiTextBox.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.phiTextBox.Name = "phiTextBox"
-        Me.phiTextBox.Size = New System.Drawing.Size(40, 22)
+        Me.phiTextBox.Size = New System.Drawing.Size(31, 20)
         Me.phiTextBox.TabIndex = 2
         '
-        'thetaTextBox
+        'alphaTextBox
         '
-        Me.thetaTextBox.Location = New System.Drawing.Point(879, 66)
-        Me.thetaTextBox.Name = "thetaTextBox"
-        Me.thetaTextBox.Size = New System.Drawing.Size(43, 22)
-        Me.thetaTextBox.TabIndex = 3
+        Me.alphaTextBox.Location = New System.Drawing.Point(659, 54)
+        Me.alphaTextBox.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.alphaTextBox.Name = "alphaTextBox"
+        Me.alphaTextBox.Size = New System.Drawing.Size(33, 20)
+        Me.alphaTextBox.TabIndex = 3
         '
         'degreeChange
         '
-        Me.degreeChange.Location = New System.Drawing.Point(838, 94)
+        Me.degreeChange.Location = New System.Drawing.Point(628, 76)
+        Me.degreeChange.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.degreeChange.Name = "degreeChange"
-        Me.degreeChange.Size = New System.Drawing.Size(75, 25)
+        Me.degreeChange.Size = New System.Drawing.Size(56, 20)
         Me.degreeChange.TabIndex = 4
         Me.degreeChange.Text = "Change"
         Me.degreeChange.UseVisualStyleBackColor = True
         '
         'ObliqueProjection
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(934, 522)
+        Me.ClientSize = New System.Drawing.Size(700, 424)
         Me.Controls.Add(Me.degreeChange)
-        Me.Controls.Add(Me.thetaTextBox)
+        Me.Controls.Add(Me.alphaTextBox)
         Me.Controls.Add(Me.phiTextBox)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "ObliqueProjection"
         Me.Text = "Oblique Projection"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -99,6 +103,6 @@ Partial Class ObliqueProjection
     Friend WithEvents Button1 As Button
     Friend WithEvents RotationTick As Timer
     Friend WithEvents phiTextBox As TextBox
-    Friend WithEvents thetaTextBox As TextBox
+    Friend WithEvents alphaTextBox As TextBox
     Friend WithEvents degreeChange As Button
 End Class
