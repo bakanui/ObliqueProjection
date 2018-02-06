@@ -28,21 +28,21 @@
         Init(phi, alpha)
     End Sub
     Sub DrawCube()
-        Dim i, j As Integer
-        For j = 0 To 3
+        Dim i, j, k As Integer
+        For i = 0 To 3
+            graphics.DrawLine(Pens.Black, VS(edges(i).point1).x, VS(edges(i).point1).y, VS(edges(i).point2).x, VS(edges(i).point2).y)
+        Next
+        For j = 4 To 7
             graphics.DrawLine(Pens.Red, VS(edges(j).point1).x, VS(edges(j).point1).y, VS(edges(j).point2).x, VS(edges(j).point2).y)
         Next
-        For i = 4 To 11
-            graphics.DrawLine(Pens.Black, VS(edges(i).point1).x, VS(edges(i).point1).y, VS(edges(i).point2).x, VS(edges(i).point2).y)
+        For k = 8 To 11
+            graphics.DrawLine(Pens.Black, VS(edges(k).point1).x, VS(edges(k).point1).y, VS(edges(k).point2).x, VS(edges(k).point2).y)
         Next
         PictureBox1.Image = canvas
     End Sub
     Sub HideCube()
-        Dim i, j As Integer
-        For j = 0 To 3
-            graphics.DrawLine(Pens.White, VS(edges(j).point1).x, VS(edges(j).point1).y, VS(edges(j).point2).x, VS(edges(j).point2).y)
-        Next
-        For i = 4 To 11
+        Dim i As Integer
+        For i = 0 To 11
             graphics.DrawLine(Pens.White, VS(edges(i).point1).x, VS(edges(i).point1).y, VS(edges(i).point2).x, VS(edges(i).point2).y)
         Next
         PictureBox1.Image = canvas
