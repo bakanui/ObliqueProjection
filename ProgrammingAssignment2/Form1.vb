@@ -108,13 +108,13 @@
             SetColMat(Rot, 2, 0, SinDegree(deg), CosDegree(deg), 0)
             SetColMat(Rot, 3, 0, 0, 0, 1)
         ElseIf YButton.Checked = True Then
-            SetColMat(Rot, 0, CosDegree(deg), 0, -SinDegree(deg), 0)
+            SetColMat(Rot, 0, CosDegree(deg), 0, SinDegree(deg), 0)
             SetColMat(Rot, 1, 0, 1, 0, 0)
-            SetColMat(Rot, 2, SinDegree(deg), 0, CosDegree(deg), 0)
+            SetColMat(Rot, 2, -SinDegree(deg), 0, CosDegree(deg), 0)
             SetColMat(Rot, 3, 0, 0, 0, 1)
         ElseIf ZButton.Checked = True Then
-            SetColMat(Rot, 0, CosDegree(deg), SinDegree(deg), 0, 0)
-            SetColMat(Rot, 1, -SinDegree(deg), CosDegree(deg), 0, 0)
+            SetColMat(Rot, 0, CosDegree(deg), -SinDegree(deg), 0, 0)
+            SetColMat(Rot, 1, SinDegree(deg), CosDegree(deg), 0, 0)
             SetColMat(Rot, 2, 0, 0, 1, 0)
             SetColMat(Rot, 3, 0, 0, 0, 1)
         End If
