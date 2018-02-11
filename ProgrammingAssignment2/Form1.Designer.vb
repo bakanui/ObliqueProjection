@@ -37,6 +37,7 @@ Partial Class ObliqueProjection
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -155,7 +156,7 @@ Partial Class ObliqueProjection
         Me.GroupBox2.Controls.Add(Me.degreeChange)
         Me.GroupBox2.Controls.Add(Me.phiTextBox)
         Me.GroupBox2.Controls.Add(Me.alphaTextBox)
-        Me.GroupBox2.Location = New System.Drawing.Point(614, 205)
+        Me.GroupBox2.Location = New System.Drawing.Point(614, 229)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(75, 90)
         Me.GroupBox2.TabIndex = 6
@@ -180,11 +181,21 @@ Partial Class ObliqueProjection
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "α"
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(618, 344)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 59)
+        Me.Button3.TabIndex = 7
+        Me.Button3.Text = "Reset "
+        Me.Button3.UseVisualStyleBackColor = True
+        '
         'ObliqueProjection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(699, 424)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.PictureBox1)
@@ -213,4 +224,5 @@ Partial Class ObliqueProjection
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Button2 As Button
+    Friend WithEvents Button3 As Button
 End Class

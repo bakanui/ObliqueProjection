@@ -158,6 +158,15 @@
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         RotationTick.Enabled = False
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        RotationTick.Enabled = False
+
+        canvas = New Bitmap(PictureBox1.Width, PictureBox1.Height)
+        graphics = Graphics.FromImage(canvas)
+        Init(phi, alpha)
+    End Sub
+
     Function SinDegree(ByRef degree As Single)
         Return Math.Sin(DegreeToRadian(degree))
     End Function
