@@ -9,8 +9,7 @@
     Dim VR(7), VS(7) As Point
     Dim deg As Single = 0
     Structure Edge
-        Dim point1 As Integer
-        Dim point2 As Integer
+        Dim point1, point2 As Integer
     End Structure
     Structure Point
         Dim x, y, z, w As Single
@@ -98,9 +97,7 @@
     End Sub
     Private Sub RotationTick_Tick(sender As Object, e As EventArgs) Handles RotationTick.Tick
         Dim Rot(3, 3) As Single
-
         HideCube()
-
         deg = deg + 5
         If XButton.Checked = True Then
             SetColMat(Rot, 0, 1, 0, 0, 0)
@@ -118,7 +115,6 @@
             SetColMat(Rot, 2, 0, 0, 1, 0)
             SetColMat(Rot, 3, 0, 0, 0, 1)
         End If
-
         For i = 0 To 7
             VR(i) = MultiplyMat(vertex(i), Rot)
             VR(i) = MultiplyMat(VR(i), view)
@@ -158,15 +154,12 @@
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         RotationTick.Enabled = False
     End Sub
-
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         RotationTick.Enabled = False
-
         canvas = New Bitmap(PictureBox1.Width, PictureBox1.Height)
         graphics = Graphics.FromImage(canvas)
         Init(phi, alpha)
     End Sub
-
     Function SinDegree(ByRef degree As Single)
         Return Math.Sin(DegreeToRadian(degree))
     End Function
